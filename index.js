@@ -1,9 +1,9 @@
-let input = document.getElementById("input");
-let addBtn = document.getElementById("btn_add");
-let list = document.getElementById("list");
-let listDone = document.getElementById("list_done");
-let done_task = document.getElementById("security-bar");
-let done_bar = document.getElementById("completed-bar");
+const input = document.querySelector("#input");
+const addBtn = document.querySelector("#btn_add");
+const list = document.querySelector("#list");
+const listDone = document.querySelector("#list_done");
+const done_task = document.querySelector("#security-bar");
+const done_bar = document.querySelector("#completed-bar");
 let todos = [];
 
 function checkPhoneKey(key) {
