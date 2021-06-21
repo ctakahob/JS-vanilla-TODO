@@ -12,11 +12,6 @@ function checkPhoneKey(key) {
     } else {}
 }
 
-function imputblur() {
-    onfocus = "if (this.value == this.defaultValue) this.value = ''";
-    onblur = "if (this.value=='') this.value = this.defaultValue";
-}
-
 function addTodo() {
     if (input.value.trim() !== "") {
         let todo = { text: input.value, check: false, id: Date.now() };
