@@ -9,7 +9,7 @@ let todos = [];
 function checkPhoneKey(key) {
     if (key === "Enter") {
         return addTodo();
-    } else {}
+    }
 }
 
 function addTodo() {
@@ -71,8 +71,7 @@ function render() {
         del.textContent = "X";
         del.addEventListener("click", delTsk);
         li.appendChild(del);
-        imputblur();
-        bar();
+        procBar();
         taskBar();
 
         todos[i].check ? list_done.appendChild(li) : list.appendChild(li);
@@ -126,7 +125,7 @@ function delTsk(element) {
     let id = element.target.parentNode.id;
     let delitem = todos.filter((e) => e.id == id);
     todos = todos.filter((e) => !delitem.includes(e));
-    bar();
+    procBar();
     taskBar();
     setTimeout(render, 1000);
     saveLocSt(todos);
@@ -142,7 +141,7 @@ function changeTask(element) {
     render();
 }
 
-function bar() {
+function procBar() {
     let done = todos.filter((e) => e.check === true);
     let undone = todos.filter((e) => e.check === false);
     done_task.style.width =
