@@ -14,8 +14,7 @@ function checkPhoneKey(key) {
 
 function addTodo() {
     if (input.value.trim() !== "") {
-        let todo = { text: input.value, check: false, id: Date.now() };
-
+        let todo = { text: input.value, completed: false, id: Date.now() };
         todos.push(todo);
         saveLocSt(todos);
         input.value = "";
@@ -51,7 +50,7 @@ function render() {
         let li = document.createElement("li");
         let checkbox = document.createElement("input");
         checkbox.type = "checkbox";
-        checkbox.checked = todos[i].check;
+        checkbox.checked = todos[i].completed;
         checkbox.classList.add("cb");
         checkbox.addEventListener("click", changeTask);
         let span = document.createElement("span");
@@ -74,7 +73,7 @@ function render() {
         procBar();
         taskBar();
 
-        todos[i].check ? list_done.appendChild(li) : list.appendChild(li);
+        todos[i].completed ? list_done.appendChild(li) : list.appendChild(li);
     }
 }
 
@@ -95,7 +94,7 @@ function editTask(element) {
                 span.textContent = edit.value;
                 let find = todos.filter((e) => e.id == id);
                 todos = todos.filter((e) => !find.includes(e));
-                let editedtask = { text: edit.value, check: false, id: element.id };
+                let editedtask = { text: edit.value, completed: false, id: element.id };
                 console.log(editedtask);
                 console.log(todos);
                 todos.push(editedtask);
@@ -135,22 +134,22 @@ function changeTask(element) {
     let id = element.target.parentNode.id;
     let find = todos.filter((e) => e.id == id);
     todos = todos.filter((e) => !find.includes(e));
-    find[0].check = !find[0].check;
+    find[0].completed = !find[0].completed;
     todos.push(find[0]);
     saveLocSt(todos);
     render();
 }
 
 function procBar() {
-    let done = todos.filter((e) => e.check === true);
-    let undone = todos.filter((e) => e.check === false);
+    let done = todos.filter((e) => e.completed === true);
+    let undone = todos.filter((e) => e.completed === false);
     done_task.style.width =
         (done.length / (done.length + undone.length)) * 100 + "%";
 }
 
 function taskBar() {
-    let done = todos.filter((e) => e.check === true);
-    let undone = todos.filter((e) => e.check === false);
+    let done = todos.filter((e) => e.completed === true);
+    let undone = todos.filter((e) => e.completed === false);
     done_bar.style.width =
         (done.length / (done.length + undone.length)) * 100 + "%";
 }
