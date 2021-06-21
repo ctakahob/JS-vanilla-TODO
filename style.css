@@ -230,7 +230,8 @@ li.removed-item {
     transform-origin: 0% 100%;
 }
 
-@keyframes removed-item-animation {
+
+/* @keyframes removed-item-animation {
     0% {
         opacity: 1;
         transform: rotateZ(0);
@@ -239,4 +240,93 @@ li.removed-item {
         opacity: 0;
         transform: translateY(600px) rotateZ(90deg);
     }
+} */
+
+@keyframes removed-item-animation {
+    0% {
+        opacity: 1;
+        transform: rotateZ(0);
+    }
+    20% {
+        opacity: 1;
+        transform: rotateZ(140deg);
+    }
+    40% {
+        opacity: 1;
+        transform: rotateZ(60deg);
+    }
+    60% {
+        opacity: 1;
+        transform: rotateZ(110deg);
+    }
+    70% {
+        opacity: 1;
+        transform: rotateZ(90deg) translateX(0);
+    }
+    90% {
+        opacity: 1;
+        transform: rotateZ(90deg) translateX(600px);
+    }
+    100% {
+        opacity: 0;
+        transform: rotateZ(90deg) translateX(600px);
+    }
+}
+
+.remov-all {
+    animation: remove-all-animation 1s cubic-bezier(0.55, -0.04, 0.91, 0.94) forwards;
+    /*transform origin is moved to the bottom left corner*/
+    transform-origin: 0% 100%;
+}
+
+@keyframes remove-all-animation {
+    0% {
+        opacity: 1;
+        transform: rotateZ(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(600px) rotateZ(90deg);
+    }
+}
+
+.redbutton {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: #f63d3d;
+    background-image: -webkit-linear-gradient(top, #0d0b88, #5f61ec);
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 50%;
+    height: 45px;
+    line-height: 14px;
+    color: #ffffff;
+    font-family: Open Sans;
+    width: 45px;
+    font-size: 20px;
+    font-weight: 900;
+    padding: 12px;
+    box-shadow: 1px 1px 6px 0px #000000;
+    -webkit-box-shadow: 1px 1px 6px 0px #000000;
+    -moz-box-shadow: 1px 1px 6px 0px #000000;
+    text-shadow: 1px 1px 6px #000000;
+    border: solid #762c2c 1px;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.redbutton:hover {
+    border: solid #ed3333 1px;
+    background: #811616;
+    background-image: -webkit-linear-gradient(top, #811616, #5f3df6);
+    background-image: -moz-linear-gradient(top, #811616, #1c06e0);
+    background-image: -ms-linear-gradient(top, #811616, #4807fa);
+    background-image: -o-linear-gradient(top, #811616, #2f04ec);
+    background-image: linear-gradient(to bottom, #811616, #f63d3d);
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    text-decoration: none;
 }

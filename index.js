@@ -8,26 +8,31 @@ let todos = [];
 
 function checkPhoneKey(key) {
     if (key === "Enter") {
-        return addTask();
-    }
+        return addTodo();
+    } else {}
 }
 
-let addTask = function() {
+function imputblur() {
+    onfocus = "if (this.value == this.defaultValue) this.value = ''";
+    onblur = "if (this.value=='') this.value = this.defaultValue";
+}
+
+function addTodo() {
     if (input.value.trim() !== "") {
-        let todo = { text: input.value, check: false, id: new Date() };
+        let todo = { text: input.value, check: false, id: Date.now() };
 
         todos.push(todo);
-        saveLS(todos);
+        saveLocSt(todos);
         input.value = "";
         render();
     }
-};
+}
 
-let saveLS = function(todos) {
+function saveLocSt(todos) {
     localStorage.setItem("todos", JSON.stringify(todos));
-};
+}
 
-function loadLS() {
+function loadLocSt() {
     if (localStorage.getItem("todos")) {
         todos = JSON.parse(localStorage.getItem("todos"));
         render();
@@ -39,13 +44,12 @@ document.addEventListener("DOMContentLoaded", function() {
         if (input.value == "") {
             return;
         } else {
-            addTask();
-            console.log(todos);
+            addTodo();
         }
     });
 });
 
-let render = function() {
+function render() {
     list_done.innerHTML = "";
     list.innerHTML = "";
     for (let i = 0; i < todos.length; i++) {
@@ -61,31 +65,33 @@ let render = function() {
         li.id = todos[i].id;
         li.appendChild(checkbox);
         span.textContent = todos[i].text;
-        span.addEventListener("dblclick", editTsk);
+        span.addEventListener("dblclick", editTask);
+        span.setAttribute(
+            "title",
+            "Dublclick to edit Task, Enter save, Esc to escape"
+        );
         span.id = todos[i].id;
         li.appendChild(span);
         del.classList.add("del");
         del.textContent = "X";
         del.addEventListener("click", delTsk);
         li.appendChild(del);
+        imputblur();
         bar();
         taskBar();
 
         todos[i].check ? list_done.appendChild(li) : list.appendChild(li);
     }
-};
-document.addEventListener("DOMContentLoaded", function() {
-    render();
-});
+}
 
-let editTsk = function(element) {
+function editTask(element) {
     let id = element.target.parentNode.id;
     li = element.target.parentNode;
     let span = element.target;
     let edit = document.createElement("input");
     li.removeChild(span);
     edit.setAttribute("type", "text");
-    edit.setAttribute("onkeyup", "return checkKey(event.key)");
+    edit.setAttribute("onkeyup", "checkKey(event.key)");
     edit.classList.add("edTodo");
     edit.value = span.textContent;
     li.appendChild(edit);
@@ -93,18 +99,23 @@ let editTsk = function(element) {
         if (edit.value !== span.textContent) {
             if ((element.id = id)) {
                 span.textContent = edit.value;
-                let find = todos.filter((e) => e.id === id);
+                let find = todos.filter((e) => e.id == id);
                 todos = todos.filter((e) => !find.includes(e));
                 let editedtask = { text: edit.value, check: false, id: element.id };
+                console.log(editedtask);
+                console.log(todos);
                 todos.push(editedtask);
-                saveLS(todos);
+                saveLocSt(todos);
                 render();
             }
             li.removeChild(edit);
             li.appendChild(span);
+        } else {
+            li.removeChild(edit);
+            li.appendChild(span);
         }
     };
-};
+}
 
 function checkKey(key) {
     if (key === "Enter") {
@@ -114,7 +125,7 @@ function checkKey(key) {
     }
 }
 
-let delTsk = function(element) {
+function delTsk(element) {
     let wTile = element.target.parentNode;
     wTile.className = "removed-item";
     let id = element.target.parentNode.id;
@@ -123,36 +134,42 @@ let delTsk = function(element) {
     bar();
     taskBar();
     setTimeout(render, 1000);
-    saveLS(todos);
-};
+    saveLocSt(todos);
+}
 
-let changeTask = function(element) {
+function changeTask(element) {
     let id = element.target.parentNode.id;
     let find = todos.filter((e) => e.id == id);
     todos = todos.filter((e) => !find.includes(e));
     find[0].check = !find[0].check;
     todos.push(find[0]);
-    saveLS(todos);
+    saveLocSt(todos);
     render();
-};
-let bar = function() {
+}
+
+function bar() {
     let done = todos.filter((e) => e.check === true);
     let undone = todos.filter((e) => e.check === false);
     done_task.style.width =
         (done.length / (done.length + undone.length)) * 100 + "%";
-};
+}
 
-let taskBar = function() {
+function taskBar() {
     let done = todos.filter((e) => e.check === true);
     let undone = todos.filter((e) => e.check === false);
     done_bar.style.width =
         (done.length / (done.length + undone.length)) * 100 + "%";
-};
+}
 
 function shuffle() {
     todos.sort(() => Math.random() - 0.5);
-    saveLS(todos);
+    saveLocSt(todos);
     render();
 }
 
-loadLS();
+function deleteAll() {
+    let remAll = document.querySelector("#main-wrapper");
+    remAll.className = "remov-all";
+}
+
+loadLocSt();
