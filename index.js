@@ -9,6 +9,8 @@ let todos = [];
 function checkPhoneKey(key) {
     if (key === "Enter") {
         return addTodo();
+    } else if (key === "Escape") {
+        input.value = "";
     }
 }
 
@@ -33,7 +35,7 @@ function loadLocSt() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+function ButtonTodo() {
     addBtn.addEventListener("click", function(evt) {
         if (input.value == "") {
             return;
@@ -41,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function() {
             addTodo();
         }
     });
-});
+}
 
 function render() {
     list_done.innerHTML = "";
@@ -75,6 +77,13 @@ function render() {
 
         todos[i].completed ? list_done.appendChild(li) : list.appendChild(li);
     }
+}
+
+function procBar() {
+    let done = todos.filter((e) => e.completed === true);
+    let undone = todos.filter((e) => e.completed === false);
+    done_task.style.width =
+        (done.length / (done.length + undone.length)) * 100 + "%";
 }
 
 function editTask(element) {
@@ -138,13 +147,6 @@ function changeTask(element) {
     todos.push(find[0]);
     saveLocSt(todos);
     render();
-}
-
-function procBar() {
-    let done = todos.filter((e) => e.completed === true);
-    let undone = todos.filter((e) => e.completed === false);
-    done_task.style.width =
-        (done.length / (done.length + undone.length)) * 100 + "%";
 }
 
 function taskBar() {
