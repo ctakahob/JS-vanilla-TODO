@@ -91,12 +91,20 @@ function editTask(element) {
     li = element.target.parentNode;
     let span = element.target;
     let edit = document.createElement("input");
+    let save = document.createElement("button");
+    let cancel = document.createElement("button");
     li.removeChild(span);
     edit.setAttribute("type", "text");
     edit.setAttribute("onkeyup", "checkKey(event.key)");
     edit.classList.add("edTodo");
     edit.value = span.textContent;
+    save.innerHTML = "save";
+    save.setAttribute("onclick", "ediTodo()");
+    cancel.innerHTML = "cancel";
+    cancel.setAttribute("onclick", "render()");
     li.appendChild(edit);
+    li.appendChild(save);
+    li.appendChild(cancel);
     ediTodo = function() {
         if (edit.value !== span.textContent) {
             if ((element.id = id)) {
@@ -111,9 +119,13 @@ function editTask(element) {
                 render();
             }
             li.removeChild(edit);
+            li.removeChild(save);
+            li.removeChild(cancel);
             li.appendChild(span);
         } else {
             li.removeChild(edit);
+            li.removeChild(save);
+            li.removeChild(cancel);
             li.appendChild(span);
         }
     };
