@@ -53,7 +53,6 @@ ul {
 }
 
 li {
-    border-radius: 10px;
     margin-top: 20px;
     height: 30px;
     background-color: rgb(252, 86, 86);
@@ -72,8 +71,6 @@ li {
 }
 
 .del:hover {
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
     cursor: pointer;
     background-color: rgb(41, 15, 160);
 }
